@@ -1,8 +1,20 @@
+import { Suspense } from "react";
 import { getAllProducts, getPublicProduct } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
+import FilterBar from "@/components/FilterBar";
 
-export default async function Home() {
-  const products = getAllProducts().map(getPublicProduct);
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const { platform } = await searchParams;
+  const allProducts = getAllProducts().map(getPublicProduct);
+
+  const products =
+    typeof platform === "string"
+      ? allProducts.filter((p) => p.platform === platform)
+      : allProducts;
 
   return (
     <>
@@ -15,7 +27,11 @@ export default async function Home() {
         </p>
       </section>
 
-      {/* 筛选/搜索区 — T1.3 ~ T1.5 填充 */}
+      <section className="mb-6">
+        <Suspense fallback={null}>
+          <FilterBar />
+        </Suspense>
+      </section>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => (
