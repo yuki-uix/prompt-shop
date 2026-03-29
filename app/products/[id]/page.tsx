@@ -4,12 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ImageGallery from "@/components/ImageGallery";
-
-const platformLabel: Record<string, string> = {
-  midjourney: "Midjourney",
-  flux: "FLUX",
-  ideogram: "Ideogram",
-};
+import PlatformBadge from "@/components/PlatformBadge";
 
 export function generateStaticParams() {
   return getAllProducts().map((p) => ({ id: p.id }));
@@ -55,9 +50,9 @@ export default async function ProductDetailPage({
             {product.title}
           </h1>
 
-          <span className="mt-3 inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium uppercase tracking-wide text-indigo-600">
-            {platformLabel[product.platform]}
-          </span>
+          <div className="mt-3">
+            <PlatformBadge platform={product.platform} />
+          </div>
 
           <p className="mt-4 text-3xl font-bold text-gray-900">
             {formatPrice(product.price)}
