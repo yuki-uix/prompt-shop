@@ -2,8 +2,8 @@ import { getProductById, getAllProducts } from "@/lib/products";
 import { formatPrice } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
+import ImageGallery from "@/components/ImageGallery";
 
 const platformLabel: Record<string, string> = {
   midjourney: "Midjourney",
@@ -45,18 +45,8 @@ export default async function ProductDetailPage({
       </Link>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
-        {/* T2.2 ImageGallery */}
         <div className="lg:col-span-3">
-          <div className="relative aspect-4/3 overflow-hidden rounded-lg bg-gray-100">
-            <Image
-              src={product.images[0]}
-              alt={product.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 60vw"
-              priority
-            />
-          </div>
+          <ImageGallery images={product.images} alt={product.title} />
         </div>
 
         {/* 标题、平台、价格、使用说明、T2.5 BuyButton */}

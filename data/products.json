@@ -8,7 +8,7 @@
     "platform": "midjourney",
     "category": "portrait",
     "promptContent": "portrait photography of [subject], cinematic lighting with strong key light from 45 degrees, subtle rim light on hair, deep shadows on opposite side, shallow depth of field f/1.4, shot on Canon EOS R5, 85mm lens, film grain, moody color grading with teal shadows and warm highlights, studio backdrop with light leak --ar 3:4 --v 6 --style raw",
-    "images": ["/images/cinematic-portrait-1.svg"],
+    "images": ["/images/cinematic-portrait-1.svg", "/images/cinematic-portrait-2.svg", "/images/cinematic-portrait-3.svg"],
     "usageGuide": "Replace [subject] with your character description. Works best with --ar 3:4 or --ar 2:3 for portrait orientation. Add --style raw for more photorealistic results.",
     "createdAt": "2026-03-01T00:00:00Z"
   },
