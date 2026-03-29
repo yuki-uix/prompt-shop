@@ -8,7 +8,7 @@
     "platform": "midjourney",
     "category": "portrait",
     "promptContent": "portrait photography of [subject], cinematic lighting with strong key light from 45 degrees, subtle rim light on hair, deep shadows on opposite side, shallow depth of field f/1.4, shot on Canon EOS R5, 85mm lens, film grain, moody color grading with teal shadows and warm highlights, studio backdrop with light leak --ar 3:4 --v 6 --style raw",
-    "images": ["/images/cinematic-portrait-1.svg", "/images/cinematic-portrait-2.svg", "/images/cinematic-portrait-3.svg"],
+    "images": ["/images/cinematic-portrait-1.jpg", "/images/cinematic-portrait-2.jpg", "/images/cinematic-portrait-3.jpg"],
     "usageGuide": "Replace [subject] with your character description. Works best with --ar 3:4 or --ar 2:3 for portrait orientation. Add --style raw for more photorealistic results.",
     "createdAt": "2026-03-01T00:00:00Z"
   },
@@ -21,7 +21,7 @@
     "platform": "flux",
     "category": "scene",
     "promptContent": "a breathtaking watercolor painting of [scene description], soft washes of color blending into wet paper texture, delicate brushstrokes visible, golden hour lighting casting warm amber tones across the scene, misty atmosphere with subtle color bleeding at edges, professional watercolor illustration, gallery quality, white paper border visible",
-    "images": ["/images/watercolor-landscape-1.svg"],
+    "images": ["/images/watercolor-landscape-1.jpg","/images/watercolor-landscape-2.jpg"],
     "usageGuide": "Replace [scene description] with your desired landscape (e.g., 'a mountain lake at sunset', 'a coastal village in autumn'). The prompt works well with both natural and urban scenes.",
     "createdAt": "2026-03-05T00:00:00Z"
   },
@@ -34,7 +34,7 @@
     "platform": "midjourney",
     "category": "style",
     "promptContent": "1990s anime cel animation style portrait of [character description], hand-drawn line art with visible ink strokes, cel shading with limited color palette, VHS grain overlay, nostalgic warm color temperature, Studio Ghibli inspired background details, traditional animation production quality, slight lens distortion, scan lines --niji 6 --ar 4:5",
-    "images": ["/images/retro-anime-1.svg"],
+    "images": ["/images/retro-anime-1.jpg"],
     "usageGuide": "Replace [character description] with details about your character. Use --niji 6 for best anime results. Works well with --ar 4:5 or --ar 1:1.",
     "createdAt": "2026-03-10T00:00:00Z"
   },
@@ -47,7 +47,7 @@
     "platform": "ideogram",
     "category": "scene",
     "promptContent": "a sweeping aerial view of a futuristic megacity at night, towering skyscrapers with holographic advertisements, neon signs in pink, cyan, and purple reflecting off wet streets below, flying vehicles leaving light trails between buildings, dense urban atmosphere with volumetric fog, cyberpunk aesthetic, ultra detailed architectural design, photorealistic rendering, 8K resolution",
-    "images": ["/images/neon-cityscape-1.svg"],
+    "images": ["/images/neon-cityscape-1.jpg"],
     "usageGuide": "This prompt works best as-is for establishing shots. To customize, modify the color palette (pink/cyan/purple) or add specific architectural styles. Add descriptive elements for foreground interest.",
     "createdAt": "2026-03-15T00:00:00Z"
   },
@@ -60,7 +60,7 @@
     "platform": "flux",
     "category": "portrait",
     "promptContent": "high fashion editorial portrait of [subject], ethereal and luminous skin with soft catch lights, flowing sheer fabric caught in gentle wind, backlit with golden hour sunlight creating a halo effect, shallow depth of field with bokeh, delicate floral elements woven into styling, Vogue magazine quality, shot by Tim Walker, medium format film aesthetic, subtle pastel color palette",
-    "images": ["/images/ethereal-fashion-1.svg"],
+    "images": ["/images/ethereal-fashion-1.jpg"],
     "usageGuide": "Replace [subject] with model description. Works best with descriptions of clothing and accessories. For stronger editorial feel, specify a photographer reference (e.g., 'shot by Tim Walker' or 'shot by Peter Lindbergh').",
     "createdAt": "2026-03-20T00:00:00Z"
   }
