@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { getAllProducts, getPublicProduct } from "@/lib/products";
+import { filterProducts, parseFilterParams } from "@/lib/filters";
 import ProductCard from "@/components/ProductCard";
 import FilterBar from "@/components/FilterBar";
 import SearchBar from "@/components/SearchBar";
@@ -10,23 +11,9 @@ export default async function Home({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { platform, category, q } = await searchParams;
-  let products = getAllProducts().map(getPublicProduct);
-
-  if (typeof platform === "string") {
-    products = products.filter((p) => p.platform === platform);
-  }
-  if (typeof category === "string") {
-    products = products.filter((p) => p.category === category);
-  }
-  if (typeof q === "string" && q.trim()) {
-    const lower = q.toLowerCase();
-    products = products.filter(
-      (p) =>
-        p.title.toLowerCase().includes(lower) ||
-        p.description.toLowerCase().includes(lower),
-    );
-  }
+  const params = parseFilterParams(await searchParams);
+  const allProducts = getAllProducts().map(getPublicProduct);
+  const products = filterProducts(allProducts, params);
 
   return (
     <>
