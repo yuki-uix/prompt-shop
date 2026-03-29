@@ -2,12 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 import type { PublicProduct } from "@/lib/types";
-
-const platformLabel: Record<PublicProduct["platform"], string> = {
-  midjourney: "Midjourney",
-  flux: "FLUX",
-  ideogram: "Ideogram",
-};
+import PlatformBadge from "@/components/PlatformBadge";
 
 export default function ProductCard({ product }: { product: PublicProduct }) {
   return (
@@ -25,9 +20,7 @@ export default function ProductCard({ product }: { product: PublicProduct }) {
         />
       </div>
       <div className="p-4">
-        <span className="text-xs font-medium uppercase tracking-wide text-indigo-600">
-          {platformLabel[product.platform]}
-        </span>
+        <PlatformBadge platform={product.platform} />
         <h3 className="mt-1 text-lg font-semibold text-gray-900">
           {product.title}
         </h3>
