@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import ImageGallery from "@/components/ImageGallery";
 import PlatformBadge from "@/components/PlatformBadge";
 import BlurredPrompt from "@/components/BlurredPrompt";
+import BuyButton from "@/components/BuyButton";
 
 export function generateStaticParams() {
   return getAllProducts().map((p) => ({ id: p.id }));
@@ -72,11 +73,8 @@ export default async function ProductDetailPage({
             </p>
           </div>
 
-          {/* T2.5 BuyButton placeholder */}
           <div className="mt-6">
-            <div className="flex h-12 items-center justify-center rounded-lg bg-gray-100 text-sm text-gray-400">
-              购买按钮（即将推出）
-            </div>
+            <BuyButton productId={product.id} price={product.price} />
           </div>
         </div>
       </div>
