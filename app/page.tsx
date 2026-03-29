@@ -8,13 +8,15 @@ export default async function Home({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { platform } = await searchParams;
-  const allProducts = getAllProducts().map(getPublicProduct);
+  const { platform, category } = await searchParams;
+  let products = getAllProducts().map(getPublicProduct);
 
-  const products =
-    typeof platform === "string"
-      ? allProducts.filter((p) => p.platform === platform)
-      : allProducts;
+  if (typeof platform === "string") {
+    products = products.filter((p) => p.platform === platform);
+  }
+  if (typeof category === "string") {
+    products = products.filter((p) => p.category === category);
+  }
 
   return (
     <>
