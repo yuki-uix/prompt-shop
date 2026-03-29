@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import ImageGallery from "@/components/ImageGallery";
 import PlatformBadge from "@/components/PlatformBadge";
+import BlurredPrompt from "@/components/BlurredPrompt";
 
 export function generateStaticParams() {
   return getAllProducts().map((p) => ({ id: p.id }));
@@ -80,12 +81,7 @@ export default async function ProductDetailPage({
         </div>
       </div>
 
-      {/* T2.4 BlurredPrompt placeholder */}
-      <div className="mt-8">
-        <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 text-sm text-gray-400">
-          Prompt 预览区域（即将推出）
-        </div>
-      </div>
+      <BlurredPrompt previewLength={product.promptContent.length} />
     </>
   );
 }
