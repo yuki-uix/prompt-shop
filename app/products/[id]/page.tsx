@@ -75,6 +75,10 @@ export default async function ProductDetailPage({
 
           <div className="mt-6">
             <BuyButton productId={product.id} price={product.price} />
+            {/* TODO: BL-001 完成后移除此提示 */}
+            <p className="mt-3 text-xs leading-relaxed text-amber-600">
+              购买成功后请在支付成功页面及时复制 Prompt 内容，当前版本暂不支持重复查看。
+            </p>
           </div>
         </div>
       </div>
