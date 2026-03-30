@@ -20,7 +20,28 @@ export async function generateMetadata({
   const { id } = await params;
   const product = getProductById(id);
   if (!product) return {};
-  return { title: product.title, description: product.description };
+  const path = `/products/${id}`;
+  return {
+    title: product.title,
+    description: product.description,
+    openGraph: {
+      title: product.title,
+      description: product.description,
+      url: path,
+      siteName: "PromptShop",
+      type: "website",
+      images: product.images.map((img) => ({
+        url: img,
+        alt: product.title,
+      })),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.title,
+      description: product.description,
+      images: product.images.map((img) => ({ url: img })),
+    },
+  };
 }
 
 export default async function ProductDetailPage({

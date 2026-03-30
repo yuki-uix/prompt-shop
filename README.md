@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PromptShop
 
-## Getting Started
+> Full-stack demo store for selling premium AI image prompts—listing, hosted checkout, and post-payment unlock—built to show end-to-end commerce and integration work.
 
-First, run the development server:
+## Live demo
+
+[→ https://prompt-shop-one.vercel.app/](https://prompt-shop-one.vercel.app/)
+
+## Tech stack
+
+| Area | Choice |
+|------|--------|
+| Framework | [Next.js](https://nextjs.org/) 16 (App Router) |
+| UI | React 19, [Tailwind CSS](https://tailwindcss.com/) 4 |
+| Language | TypeScript (`strict`) |
+| Payments | [Stripe](https://stripe.com/) Checkout (Test Mode in MVP) |
+| Data | Static JSON (`data/products.json`)—no database |
+| Deploy | [Vercel](https://vercel.com/) |
+
+## Features
+
+- Product grid with platform / category filters and debounced search
+- Product detail with image gallery, pricing, and usage notes
+- Prompt shown blurred until purchase; reduced DOM leakage for the full prompt
+- Stripe Hosted Checkout; success page shows unlocked prompt and copy affordance
+- Webhook route verifies Stripe signatures and handles `checkout.session.completed`
+- Responsive layout; product pages use SSG; metadata / Open Graph for sharing
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 18+
+- A [Stripe](https://stripe.com/) account (Test Mode keys)
+- [Stripe CLI](https://stripe.com/docs/stripe-cli) (optional, for local webhook forwarding)
+
+### Setup
+
+1. Clone the repository and install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Copy environment template and fill in values:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   | Variable | Purpose |
+   |----------|---------|
+   | `STRIPE_SECRET_KEY` | Server-side Stripe API (Test Mode `sk_test_…`) |
+   | `STRIPE_PUBLISHABLE_KEY` | Reserved for client-side Stripe.js if needed (`pk_test_…`) |
+   | `STRIPE_WEBHOOK_SECRET` | Signing secret from Stripe webhook endpoint (`whsec_…`) |
+   | `NEXT_PUBLIC_BASE_URL` | Absolute origin for Checkout return URLs and asset URLs (`http://localhost:3000` locally; production site URL on Vercel) |
+
+3. Run the dev server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000).
+
+### Stripe webhook (local)
+
+Forward events to the app (use the secret Stripe CLI prints for `STRIPE_WEBHOOK_SECRET` in `.env.local`, or use the secret from a [CLI-only listener](https://stripe.com/docs/webhooks#test-webhook)):
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+stripe listen --forward-to localhost:3000/api/webhook
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server (after `build`) |
+| `npm run lint` | ESLint |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Architecture notes
 
-## Learn More
+- **JSON instead of a database** — MVP has a small, read-only catalog; no admin or inventory writes.
+- **Hosted Checkout** — Card data stays on Stripe; no custom PCI scope for the demo app.
+- **Session-based unlock** — No user accounts; the success page uses the Checkout session to reveal the purchased prompt.
 
-To learn more about Next.js, take a look at the following resources:
+## Project structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+prompt-shop/
+├── app/
+│   ├── api/checkout/route.ts   # Creates Stripe Checkout Session
+│   ├── api/webhook/route.ts    # Verifies webhook + fulfillment hook
+│   ├── products/[id]/page.tsx  # Product detail (SSG)
+│   ├── success/page.tsx        # Post-payment prompt display
+│   ├── layout.tsx              # Global shell + metadata
+│   └── page.tsx                # Listing
+├── components/                 # UI pieces (filters, gallery, buy button, …)
+├── data/products.json          # Catalog source
+├── lib/                        # Stripe client, products helpers, utils
+└── public/                     # Static assets (`/images/…` paths from `data/products.json`)
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

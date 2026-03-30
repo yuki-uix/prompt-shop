@@ -9,13 +9,41 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const rawBase = process.env.NEXT_PUBLIC_BASE_URL?.trim();
+const metadataBase = new URL(
+  rawBase && rawBase.length > 0 ? rawBase : "http://localhost:3000",
+);
+
+const defaultTitle = "PromptShop — Premium AI Prompts";
+const defaultDescription =
+  "Discover and buy high-quality prompts for Midjourney, FLUX, and Ideogram. Unlock creative AI-generated images.";
+
 export const metadata: Metadata = {
+  metadataBase,
   title: {
-    default: "PromptShop — AI Prompt Marketplace",
+    default: defaultTitle,
     template: "%s | PromptShop",
   },
-  description:
-    "Discover and purchase high-quality AI prompts for Midjourney, FLUX, and Ideogram.",
+  description: defaultDescription,
+  openGraph: {
+    title: defaultTitle,
+    description:
+      "Discover and buy high-quality prompts for Midjourney, FLUX, and Ideogram.",
+    url: "/",
+    siteName: "PromptShop",
+    type: "website",
+    images: [
+      {
+        url: "/images/cinematic-portrait-1.jpg",
+        alt: defaultTitle,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: defaultDescription,
+  },
 };
 
 export default function RootLayout({
