@@ -10,16 +10,13 @@ export default function SearchBar() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [query, setQuery] = useState(searchParams.get("q") ?? "");
+  const urlQuery = searchParams.get("q") ?? "";
+  const [draft, setDraft] = useState(urlQuery);
+  const [inputFocused, setInputFocused] = useState(false);
+  const inputFocusedRef = useRef(false);
   const isFirstRender = useRef(true);
-  const inputRef = useRef<HTMLInputElement>(null);
 
-  // Sync local state when URL changes externally (e.g. EmptyState clear)
-  useEffect(() => {
-    if (document.activeElement !== inputRef.current) {
-      setQuery(searchParams.get("q") ?? "");
-    }
-  }, [searchParams]);
+  const displayQuery = inputFocused ? draft : urlQuery;
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -27,10 +24,14 @@ export default function SearchBar() {
       return;
     }
 
+    if (!inputFocusedRef.current) {
+      return;
+    }
+
     const timer = setTimeout(() => {
       const params = new URLSearchParams(searchParams.toString());
-      if (query.trim()) {
-        params.set("q", query.trim());
+      if (draft.trim()) {
+        params.set("q", draft.trim());
       } else {
         params.delete("q");
       }
@@ -39,7 +40,7 @@ export default function SearchBar() {
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [query, searchParams, router, pathname]);
+  }, [draft, searchParams, router, pathname]);
 
   return (
     <div className="relative">
@@ -58,21 +59,29 @@ export default function SearchBar() {
         />
       </svg>
       <input
-        ref={inputRef}
         type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={displayQuery}
+        onChange={(e) => setDraft(e.target.value)}
+        onFocus={() => {
+          inputFocusedRef.current = true;
+          setInputFocused(true);
+          setDraft(urlQuery);
+        }}
+        onBlur={() => {
+          inputFocusedRef.current = false;
+          setInputFocused(false);
+        }}
         maxLength={MAX_LENGTH}
         placeholder="Search prompts..."
         className="w-full rounded-lg border border-gray-200 bg-white py-3 pl-10 pr-16 text-sm text-gray-900 placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
       />
-      {query.length >= WARN_THRESHOLD && (
+      {displayQuery.length >= WARN_THRESHOLD && (
         <span
           className={`absolute right-3 top-1/2 -translate-y-1/2 text-xs ${
-            query.length >= MAX_LENGTH ? "text-red-500" : "text-gray-400"
+            displayQuery.length >= MAX_LENGTH ? "text-red-500" : "text-gray-400"
           }`}
         >
-          {query.length}/{MAX_LENGTH}
+          {displayQuery.length}/{MAX_LENGTH}
         </span>
       )}
     </div>
