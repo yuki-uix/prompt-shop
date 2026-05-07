@@ -1,10 +1,26 @@
 # PromptShop
 
-> Full-stack demo store for selling premium AI image prompts—listing, hosted checkout, and post-payment unlock—built to show end-to-end commerce and integration work.
+A minimal e-commerce storefront for buying AI image prompts.  
+Built to explore the full purchase flow with real Stripe integration.
 
-## Live demo
+**[Live Demo →](https://prompt-shop-one.vercel.app/)**  
+Test card: `4242 4242 4242 4242` · any future date · any CVC
 
-[→ https://prompt-shop-one.vercel.app/](https://prompt-shop-one.vercel.app/)
+---
+
+## What this covers
+
+- Product listing with platform (Midjourney / FLUX / Ideogram) and scene filters
+- Product detail page (PDP)
+- Stripe Checkout session — create, redirect, and return handling
+- Mock fulfillment on payment success
+
+## Context
+
+Part of a personal series exploring e-commerce SaaS architecture —  
+how product discovery, checkout trust, and payment flow interact from a frontend perspective.
+
+→ [Yukiss series (Chinese)](https://juejin.cn/user/3582625834347100)
 
 ## Tech stack
 
